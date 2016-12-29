@@ -27,6 +27,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 $(call inherit-product, vendor/omni/config/common.mk)
 
 $(call inherit-product, device/google/marlin/device-marlin.mk)
+$(call inherit-product-if-exists, vendor/google_devices/marlin/device-marlin-vendor.mk)
 
 PRODUCT_PACKAGES += \
     charger_res_images \

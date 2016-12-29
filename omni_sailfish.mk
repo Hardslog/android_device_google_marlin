@@ -28,6 +28,7 @@ $(call inherit-product, vendor/omni/config/common.mk)
 
 $(call inherit-product, device/google/marlin/device-sailfish.mk)
 $(call inherit-product, device/google/marlin/aosp_sailfish.mk)
+$(call inherit-product-if-exists, vendor/google_devices/marlin/device-sailfish-vendor.mk)
 
 PRODUCT_PACKAGES += \
     charger_res_images \
