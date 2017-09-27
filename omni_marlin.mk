@@ -1,5 +1,5 @@
 #
-# Copyright 2015 The Android Open Source Project
+# Copyright 2012 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,26 +17,31 @@
 # Sample: This is where we'd set a backup provider if we had one
 # $(call inherit-product, device/sample/products/backup_overlay.mk)
 
-# Provide meaningful APN configuration
-PRODUCT_COPY_FILES := device/google/marlin/apns-full-conf.xml:system/etc/apns-conf.xml
+# Get the prebuilt list of APNs
+$(call inherit-product, vendor/omni/config/gsm.mk)
 
 # Inherit from the common Open Source product configuration
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
-PRODUCT_NAME := aosp_sailfish
-PRODUCT_DEVICE := sailfish
-PRODUCT_BRAND := Android
-PRODUCT_MODEL := AOSP on msm8996
-PRODUCT_MANUFACTURER := google
-# PRODUCT_RESTRICT_VENDOR_FILES := true
+# Inherit from our custom product configuration
+$(call inherit-product, vendor/omni/config/common.mk)
 
-PRODUCT_COPY_FILES += device/google/marlin/fstab.common:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.sailfish
-
-$(call inherit-product, device/google/marlin/device-sailfish.mk)
-$(call inherit-product-if-exists, vendor/google_devices/marlin/device-vendor-sailfish.mk)
+$(call inherit-product, device/google/marlin/device-marlin.mk)
 
 PRODUCT_PACKAGES += \
-    Launcher3 \
-    WallpaperPicker
+    charger_res_images \
+    charger
 
+PRODUCT_NAME := omni_marlin
+PRODUCT_DEVICE := marlin
+PRODUCT_BRAND := Google
+PRODUCT_MODEL := Pixel XL
+PRODUCT_MANUFACTURER := Google
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+     PRODUCT_NAME=marlin \
+     BUILD_FINGERPRINT=google/marlin/marlin:8.0.0/OPR6.170623.012/4283428:user/release-keys \
+     PRIVATE_BUILD_DESC="marlin-user 8.0.0 OPR6.170623.012 4283428 release-keys"
+
+PRODUCT_PACKAGES += \
+    update_engine_sideload

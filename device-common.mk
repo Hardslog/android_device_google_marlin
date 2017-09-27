@@ -18,16 +18,7 @@
 #
 # Everything in this directory will become public
 
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-    LOCAL_KERNEL := device/google/marlin-kernel/Image.lz4-dtb
-else
-LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
 PRODUCT_SHIPPING_API_LEVEL := 25
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
 
 DEVICE_PACKAGE_OVERLAYS += device/google/marlin/overlay
 
@@ -271,8 +262,6 @@ endif
 PRODUCT_COPY_FILES += \
     device/google/marlin/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
 
-PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc/624000.ufshc/by-name/system
-
 #FEATURE_OPENGLES_EXTENSION_PACK support string config file
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.opengles.aep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.opengles.aep.xml
@@ -300,15 +289,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Low latency audio buffer size in frames
 PRODUCT_PROPERTY_OVERRIDES += \
     audio_hal.period_size=192
-
-# Write Manufacturer & Model information in created media files.
-# IMPORTANT: ONLY SET THIS PROPERTY TO TRUE FOR PUBLIC DEVICES
-ifneq ($(filter aosp_sailfish% sailfish% aosp_marlin% marlin%, $(TARGET_PRODUCT)),)
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.recorder.show_manufacturer_and_model=true
-else
-$(error "you must decide whether to write manufacturer and model information into created media files for this device. ONLY ENABLE IT FOR PUBLIC DEVICE.")
-endif  #TARGET_PRODUCT
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.gyro.android=4 \
@@ -401,11 +381,6 @@ PRODUCT_COPY_FILES += \
 
 $(call inherit-product-if-exists, hardware/qcom/msm8996/msm8996.mk)
 $(call inherit-product-if-exists, vendor/qcom/gpu/msm8996/msm8996-gpu-vendor.mk)
-
-# TODO:
-# setup dm-verity configs.
-# PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc/7464900.sdhci/by-name/system
-# $(call inherit-product, build/target/product/verity.mk)
 
 #Property of the BDA module path for loading BDA
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -542,11 +517,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.oem_unlock_supported=1
 
-# Setup dm-verity configs
-PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc/624000.ufshc/by-name/system
-PRODUCT_VENDOR_VERITY_PARTITION := /dev/block/platform/soc/624000.ufshc/by-name/vendor
-$(call inherit-product, build/target/product/verity.mk)
-
 # Partitions (listed in the file) to be wiped under recovery.
 TARGET_RECOVERY_WIPE := \
     device/google/marlin/recovery.wipe.common
@@ -647,3 +617,6 @@ PRODUCT_PACKAGES += \
     libbacktrace.vndk-sp\
     libunwind.vndk-sp\
     liblzma.vndk-sp\
+
+# update engine
+PRODUCT_PACKAGES += brillo_update_payload
