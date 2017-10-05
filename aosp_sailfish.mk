@@ -34,7 +34,7 @@ PRODUCT_MANUFACTURER := google
 PRODUCT_COPY_FILES += device/google/marlin/fstab.common:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.sailfish
 
 $(call inherit-product, device/google/marlin/device-sailfish.mk)
-$(call inherit-product-if-exists, vendor/google_devices/sailfish/device-vendor-sailfish.mk)
+$(call inherit-product-if-exists, vendor/google_devices/marlin/device-vendor-sailfish.mk)
 
 PRODUCT_PACKAGES += \
     Launcher3 \
