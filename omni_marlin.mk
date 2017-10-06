@@ -32,6 +32,9 @@ PRODUCT_PACKAGES += \
     charger_res_images \
     charger
 
+# Inherit Omni product configuration	
+-include device/google/marlin/marlin/device-omni.mk
+
 PRODUCT_NAME := omni_marlin
 PRODUCT_DEVICE := marlin
 PRODUCT_BRAND := Google

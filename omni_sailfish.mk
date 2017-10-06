@@ -31,8 +31,10 @@ $(call inherit-product, device/google/marlin/aosp_sailfish.mk)
 
 PRODUCT_PACKAGES += \
     charger_res_images \
-    libion \
     charger
+
+# Inherit Omni product configuration	
+-include device/google/marlin/sailfish/device-omni.mk
 
 PRODUCT_NAME := omni_sailfish
 PRODUCT_DEVICE := sailfish
