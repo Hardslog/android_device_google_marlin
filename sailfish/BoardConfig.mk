@@ -3,6 +3,9 @@
 # Product-specific compile-time definitions
 #
 
+# Allow Omni config to override others
+-include device/google/marlin/sailfish/BoardConfigOmni.mk
+
 TARGET_BOARD_PLATFORM := msm8996
 TARGET_BOOTLOADER_BOARD_NAME := sailfish
 TARGET_BOARD_INFO_FILE := device/google/marlin/sailfish/board-info.txt
@@ -126,12 +129,6 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_USES_UNCOMPRESSED_KERNEL := false
 
-# Kernel
-BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-TARGET_COMPILE_WITH_MSM_KERNEL := true
-TARGET_KERNEL_CONFIG := omni_defconfig
-TARGET_KERNEL_SOURCE := kernel/google/marlin
-
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 
@@ -200,9 +197,9 @@ TARGET_USE_VERIZON_APN_LIB_PREBUILT := true
 TARGET_BOARD_KERNEL_HEADERS := device/google/marlin/kernel-headers
 
 # Install odex files into the other system image
-#BOARD_USES_SYSTEM_OTHER_ODEX := true
+BOARD_USES_SYSTEM_OTHER_ODEX := true
 
--include vendor/google_devices/sailfish/BoardConfigVendor.mk
+-include vendor/google_devices/marlin/BoardConfigVendor.mk
 # Build a separate vendor.img
 TARGET_COPY_OUT_VENDOR := vendor
 
@@ -216,5 +213,3 @@ BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
 DEVICE_MANIFEST_FILE := device/google/marlin/manifest.xml
 DEVICE_MATRIX_FILE   := device/google/marlin/compatibility_matrix.xml
-
--include vendor/google_devices/sailfish/BoardConfigVendor.mk

@@ -6,8 +6,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.fingerprint=fpc
 
 # IMS
-PRODUCT_PACKAGES += \
-    com.android.ims.rcsmanager
+#PRODUCT_PACKAGES += \
+#    com.android.ims.rcsmanager
 
 # LiveDisplay native
 PRODUCT_PACKAGES += \
@@ -17,6 +17,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     nfc_nci.pn54x.default
 
+# Pixel Experience
+PRODUCT_COPY_FILES += \
+  device/google/marlin/nexus.xml:system/etc/sysconfig/nexus.xml
+
 # Tethering
 PRODUCT_PROPERTY_OVERRIDES += \
     net.tethering.noprovisioning=true
@@ -24,3 +28,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # UI
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.use_fifo_ui=1
+
+# Update engine
+PRODUCT_PACKAGES += brillo_update_payload

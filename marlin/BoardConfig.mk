@@ -3,6 +3,9 @@
 # Product-specific compile-time definitions
 #
 
+# Allow Omni config to override others
+-include device/google/marlin/marlin/BoardConfigOmni.mk
+
 TARGET_BOARD_PLATFORM := msm8996
 TARGET_BOOTLOADER_BOARD_NAME := marlin
 TARGET_BOARD_INFO_FILE := device/google/marlin/marlin/board-info.txt
@@ -80,7 +83,7 @@ WIFI_DRIVER_FW_PATH_AP  := "ap"
 
 USE_OPENGL_RENDERER := true
 BOARD_USE_LEGACY_UI := true
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+#NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -95,6 +98,7 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 10737418240
 BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
 BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
+BOARD_NEEDS_VENDORIMAGE_SYMLINK := true
 
 TARGET_USES_ION := true
 TARGET_USES_NEW_ION_API :=true
@@ -130,12 +134,6 @@ TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_USES_UNCOMPRESSED_KERNEL := false
-
-# Kernel
-BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-TARGET_COMPILE_WITH_MSM_KERNEL := true
-TARGET_KERNEL_CONFIG := marlin_defconfig
-TARGET_KERNEL_SOURCE := kernel/google/marlin
 
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
@@ -205,7 +203,7 @@ TARGET_USE_VERIZON_APN_LIB_PREBUILT := true
 TARGET_BOARD_KERNEL_HEADERS := device/google/marlin/kernel-headers
 
 # Install odex files into the other system image
-#BOARD_USES_SYSTEM_OTHER_ODEX := true
+BOARD_USES_SYSTEM_OTHER_ODEX := true
 
 -include vendor/google_devices/marlin/BoardConfigVendor.mk
 # Build a separate vendor.img
@@ -229,5 +227,3 @@ endif
 
 DEVICE_MANIFEST_FILE := device/google/marlin/manifest.xml
 DEVICE_MATRIX_FILE   := device/google/marlin/compatibility_matrix.xml
-
--include vendor/google_devices/marlin/BoardConfigVendor.mk

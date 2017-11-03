@@ -23,9 +23,9 @@ DEVICE=marlin
 MY_DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$MY_DIR" ]]; then MY_DIR="$PWD"; fi
 
-LINEAGE_ROOT="$MY_DIR"/../../..
+OMNI_ROOT="$MY_DIR"/../../..
 
-HELPER="$LINEAGE_ROOT"/vendor/carbon/build/tools/extract_utils.sh
+HELPER="$OMNI_ROOT"/vendor/omni/build/tools/extract_utils.sh
 if [ ! -f "$HELPER" ]; then
     echo "Unable to find helper script at $HELPER"
     exit 1
@@ -50,13 +50,13 @@ EOF
 }
 
 # Initialize the helper
-setup_vendor "$DEVICE" "$VENDOR" "$LINEAGE_ROOT"
+setup_vendor "$DEVICE" "$VENDOR" "$OMNI_ROOT"
 
 # Copyright headers and guards
 write_marlin_headers
 
 # The standard blobs
-write_makefiles "$MY_DIR"/device-proprietary-files.txt
+write_makefiles "$MY_DIR"/device-proprietary-files.txt true
 
 # Done
 write_footers
